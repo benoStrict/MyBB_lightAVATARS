@@ -45,3 +45,20 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/*
+/inc/*
+/inc/plugins/*
+/inc/languages/*.*
+/inc/languages/polish/*
+/inc/languages/english/*
+/inc/languages/polish/admin/*
+/inc/languages/english/admin/*
+!/inc/
+!/inc/plugins/
+!/inc/languages/
+!/inc/languages/polish/admin/
+!/inc/languages/english/admin/
+!/inc/plugins/lightavatars.php
+!/inc/languages/polish/admin/config_lightavatars.lang.php
+!/inc/languages/english/admin/config_lightavatars.lang.php
+!/resources/
