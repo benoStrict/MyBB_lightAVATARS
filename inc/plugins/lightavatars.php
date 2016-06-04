@@ -24,16 +24,13 @@
  * THE SOFTWARE.
  */
 
-//
-
 if(!defined("IN_MYBB")) {
     exit;
 }
 
-$plugins->add_hook(
-        'pre_output_page', 
-        ['LightAvatars', 'getAvatars']
-        );
+$plugins->hooks['pre_output_page'][10]['LightAvatars->getAvatars']=[
+    'class_method' => ['LightAvatars', 'getAvatars']
+];
 
 function lightavatars_info() {
     global $lang;
@@ -265,58 +262,39 @@ final class LightAvatars
     {
         global $db, $mybb;
         
-        $guards=[];
-        $guardpattern='#{%GUARD%}(.*?){%ENDofGUARD%}#';
-        preg_match_all($guardpattern, $content, $guards);
+        $paramspattern='#{%GUARD%}(.*?){%ENDofGUARD%}{%AVATAR%}(.*?){%ENDofAVATAR%}#';
+        preg_match_all($paramspattern, $content, $params);
         
+        $pattern='#<a(.*?)href="(.*?)"(.*?)>(.*?)</a>#';
+        $parms=preg_replace($pattern, '\\2---\\4', $params[2]);
         
-        $matches=[];
-        $pattern='#{%AVATAR%}(.*?){%ENDofAVATAR%}#';
-        preg_match_all($pattern, $content, $matches);
+        $i=count($params[2]);
+        $l=$i;
+        $loop=$i;
         
-        $toreplace=$matches[0];
-        
-        $patternn='#<a(.*?)href="(.*?)"(.*?)>(.*?)</a>#';
-        $array=preg_replace($patternn, '\\2---\\4', $matches[1]);
-        
-        unset($matches);
-        
-        foreach($array as $info) {
-            $matches[]=explode('---', $info);
-        }
-        
-        foreach($matches as $key=>$row) {
-            $matches[$key][]=explode('uid=', $row[0])[1];
-        }
-        
-        $i=count($toreplace);
         while($i--) {
+            $matches[$i]=explode('---', $parms[$i]);
+            $matches[$i][]=explode('uid=', $matches[$i][0])[1];
+            $toreplace[$i]=explode('{%ENDofGUARD%}',$params[0][$i])[1];
+            
             $content=str_replace($toreplace[$i],'{%AVATAR%}'.$matches[$i][2].'{%ENDofAVATAR%}',$content);
             $match[]=$matches[$i][2];
         }
         
-        unset($array);
-        
-        $i=count($matches);
-        while($i--) {
-            if(!isset($matches[$i][2]))$matches[$i][2]=0;
-            $array[$matches[$i][2]]=[
-                $matches[$i][0],
-                $matches[$i][1],
-                $guards[1][$i]
+        while($l--) {
+            if(!isset($matches[$l][2])) {
+                $matches[$l][2]=0;
+            }
+            $array[$matches[$l][2]]=[
+                $matches[$l][0],
+                $matches[$l][1]
             ];
         }
         
-        foreach($matches as $info) {
-            $array[$info[2]]=[
-                $info[0], 
-                $info[1]
-                    ];
-        }
-        
         foreach(array_keys($array) as $key) {
-            if(!empty($key))
+            if(!empty($key)) {
                 $select[]=$key;
+            }
         }
         
         $selected=implode(" OR ",$select);
@@ -361,21 +339,16 @@ final class LightAvatars
         }
         $avatars[0]='<div class="'.$masterstyle['block'].' avatar__block"><img src="'.$mybb->settings['useravatar'].'" alt="default avatar image" class="'.$masterstyle['img'].' avatar__img" onerror="this.src=\''.$mybb->settings['useravatar'].'\'"/></div></div>';
         
-        $i=count($avatars);
-        while($i--) {
-            if(!isset($avatars[$match[$i]]))$avatars[$match[$i]]=$avatars[0];
-            $content=str_replace(
-                    '{%AVATAR%}'.$match[$i].'{%ENDofAVATAR%}', 
-                    $avatars[$match[$i]], 
-                    $content);
-        }
-        $i=count($guards[1]);
-        while($i--) {
-            $masterstyle['avatar']=explode(' ',$mybb->settings['lightavatars_'.$guards[1][$i]]);
+        while($loop--) {
+            if(!isset($avatars[$match[$loop]])){
+                $avatars[$match[$loop]]=$avatars[0];
+            }
+
+            $masterstyle['avatar']=explode(' ',$mybb->settings['lightavatars_'.$params[1][$loop]]);
             $masterstyle['avatar']="avatar--".implode(" avatar--",$masterstyle['avatar']);
             $content=str_replace(
-                    '{%GUARD%}'.$guards[1][$i].'{%ENDofGUARD%}', 
-                    '<div class='.$masterstyle['avatar'].$style['avatar'].'>', 
+                    '{%GUARD%}'.$params[1][$loop].'{%ENDofGUARD%}{%AVATAR%}'.$match[$loop].'{%ENDofAVATAR%}', 
+                    '<div class='.$masterstyle['avatar'].$style['avatar'].'>'.$avatars[$match[$loop]], 
                     $content);
         }
     }
