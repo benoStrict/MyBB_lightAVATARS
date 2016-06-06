@@ -1,4 +1,5 @@
 <?php
+$time_start = microtime(true);
 
 /* 
  * The MIT License
@@ -59,7 +60,7 @@ function lightavatars_is_installed() {
             );
 }
 
-function lightavatars_install() {
+function lightavatars_activate() {
     global $db, $cache, $lang;
     $lang->load('config_lightavatars');
 
@@ -141,14 +142,7 @@ function lightavatars_install() {
             'description'=>$lang->lightavatars_search_results_threads_thread_lastpost_desc, 
             'optionscode'=>'text', 
             'value'=>'small'
-            ],
-        [
-            'name'=>'lightavatars_google_seo', 
-            'title'=>$lang->lightavatars_google_seo, 
-            'description'=>$lang->lightavatars_google_seo_desc, 
-            'optionscode'=>'text', 
-            'value'=>'uid=%userid%'
-            ],
+            ]
         ];
 
     $i=1;
@@ -189,47 +183,47 @@ function lightavatars_install() {
     find_replace_templatesets(
             'forumdisplay_thread', 
             '#'.preg_quote('{$attachment_count}').'#', 
-            '{+LIGHTAVATARS+}forumdisplay_thread_firstpost|{$thread[\'profilelink\']}{+ENDofBLOCK+}{$attachment_count}'
+            '{+LIGHTAVATARS+}forumdisplay_thread_firstpost|{$thread[\'uid\']}{+ENDofBLOCK+}{$attachment_count}'
             );
     
     find_replace_templatesets(
             'forumdisplay_thread', 
-            '#'.preg_quote('<span class="lastpost smalltext">').'(\s*?)'.preg_quote('{$lastpostdate}').'#', 
-            '{+LIGHTAVATARS+}forumdisplay_thread_lastpost|{$lastposterlink}{+ENDofBLOCK+}<span class="lastpost smalltext">\\1{$lastpostdate}'
+            '/<(.*?)(\s*?){\$lastpostdate}/', 
+            '{+LIGHTAVATARS+}forumdisplay_thread_lastpost|{$thread[\'lastposteruid\']}{+ENDofBLOCK+}<\\1\\2{$lastpostdate}'
             );
     
     find_replace_templatesets(
             'forumbit_depth1_forum_lastpost', 
-            '#'.preg_quote('<span class="smalltext">').'(\s*?)'.preg_quote('<a href="{$lastpost_link}"').'#', 
-            '{+LIGHTAVATARS+}forumbit_depth1_forum_lastpost|{$lastpost_profilelink}{+ENDofBLOCK+}<span class="smalltext">\\1<a href="{$lastpost_link}"'
+            '#\A#', 
+            '{+LIGHTAVATARS+}forumbit_depth1_forum_lastpost|{$lastpost_data[\'lastposteruid\']}{+ENDofBLOCK+}'
             );
     
     find_replace_templatesets(
             'forumbit_depth2_forum_lastpost', 
-            '#'.preg_quote('<span class="smalltext">').'(\s*?)'.preg_quote('<a href="{$lastpost_link}"').'#', 
-            '{+LIGHTAVATARS+}forumbit_depth2_forum_lastpost|{$lastpost_profilelink}{+ENDofBLOCK+}<span class="smalltext">\\1<a href="{$lastpost_link}"'
+            '#\A#', 
+            '{+LIGHTAVATARS+}forumbit_depth2_forum_lastpost|{$lastpost_data[\'lastposteruid\']}{+ENDofBLOCK+}'
             );
     
     find_replace_templatesets(
             'search_results_posts_post', 
             '#'.preg_quote('{$post[\'profilelink\']}').'#', 
-            '{+LIGHTAVATARS+}search_results_posts_post|{$post[\'profilelink\']}{+ENDofBLOCK+}{$post[\'profilelink\']}'
+            '{+LIGHTAVATARS+}search_results_posts_post|{$post[\'uid\']}{+ENDofBLOCK+}{$post[\'profilelink\']}'
             );
     
     find_replace_templatesets(
             'search_results_threads_thread', 
             '#'.preg_quote('{$attachment_count}').'#', 
-            '{+LIGHTAVATARS+}search_results_threads_thread_firstpost|{$thread[\'profilelink\']}{+ENDofBLOCK+}{$attachment_count}'
+            '{+LIGHTAVATARS+}search_results_threads_thread_firstpost|{$thread[\'uid\']}{+ENDofBLOCK+}{$attachment_count}'
             );
     
     find_replace_templatesets(
             'search_results_threads_thread', 
-            '#'.preg_quote('<span class="smalltext">').'(\s*?)'.preg_quote('{$lastpostdate}').'#', 
-            '{+LIGHTAVATARS+}search_results_threads_thread_lastpost|{$lastposterlink}{+ENDofBLOCK+}<span class="smalltext">\\1{$lastpostdate}'
+            '/<(.*?)(\s*?){\$lastpostdate}/', 
+            '{+LIGHTAVATARS+}forumdisplay_thread_lastpost|{$thread[\'lastposteruid\']}{+ENDofBLOCK+}<\\1\\2{$lastpostdate}'
             );
 }
 
-function lightavatars_uninstall() {
+function lightavatars_deactivate() {
     global $db, $cache;
     $db->delete_query(
             'themestylesheets', 
@@ -246,294 +240,107 @@ function lightavatars_uninstall() {
     rebuild_settings();
     
     require_once MYBB_ROOT.'inc/adminfunctions_templates.php';
+    $deletepattern='#\{\+LIGHTAVATARS\+\}(.*?)\{\+ENDofBLOCK\+\}#';
     find_replace_templatesets(
             'forumdisplay_thread', 
-            '#\{\+LIGHTAVATARS\+\}(.*?)\{\+ENDofBLOCK\+\}#', 
+            $deletepattern, 
             ''
             );
     find_replace_templatesets(
             'forumdisplay_thread', 
-            '#\{\+LIGHTAVATARS\+\}(.*?)\{\+ENDofBLOCK\+\}#', 
+            $deletepattern, 
             '' 
             );
     find_replace_templatesets(
             'forumbit_depth1_forum_lastpost', 
-            '#\{\+LIGHTAVATARS\+\}(.*?)\{\+ENDofBLOCK\+\}#', 
+            $deletepattern, 
             ''
             );
     find_replace_templatesets(
             'forumbit_depth2_forum_lastpost', 
-            '#\{\+LIGHTAVATARS\+\}(.*?)\{\+ENDofBLOCK\+\}#', 
+            $deletepattern, 
             ''
             );
     find_replace_templatesets(
             'search_results_posts_post', 
-            '#\{\+LIGHTAVATARS\+\}(.*?)\{\+ENDofBLOCK\+\}#', 
+            $deletepattern, 
             ''
             );
     find_replace_templatesets(
             'search_results_threads_thread', 
-            '#\{\+LIGHTAVATARS\+\}(.*?)\{\+ENDofBLOCK\+\}#', 
+            $deletepattern, 
             ''
             );
     find_replace_templatesets(
             'search_results_threads_thread', 
-            '#\{\+LIGHTAVATARS\+\}(.*?)\{\+ENDofBLOCK\+\}#', 
+            $deletepattern, 
             ''
             );
 }
 
-final class LightAvatars
+class LightAvatars
 { 
     
     public function getAvatars(&$content)
     {
         global $db, $mybb;
-        
-        if(!preg_match_all('#\{\+LIGHTAVATARS\+\}#', $content)) {
+        $matches=[];
+        preg_match_all('/\{\+LIGHTAVATARS\+\}(.*?)\|(.*?)\{\+ENDofBLOCK\+\}/', $content, $matches);
+        if(!$matches[0]) {
             return $content;
         }
+        $matchescount=count($matches[0]);
         
-        preg_match_all('#\{\+LIGHTAVATARS\+\}(.*?)\|<a.*?\"(.*?)\".*?\>(.*?)\</a\>\{\+ENDofBLOCK\+\}#', $content, $params);
-        
-        $content=preg_replace('/\{\+LIGHTAVATARS\+\}(.*?)\|<a href=\".*?\">(.*?)<\/a>\{\+ENDofBLOCK\+\}/', '{+LIGHTAVATARS+}\\1-\\2{+ENDofBLOCK+}', $content);
-        $content=preg_replace('/\{\+LIGHTAVATARS\+\}(.*?)\|.*?\{\+ENDofBLOCK\+\}/', '{+LIGHTAVATARS+}\\1-^{+ENDofBLOCK+}', $content);
-           
-        /*
-         * I NEED
-         * @param $param
-         * $params[0]
-         * $params[1]-guards
-         * $params[2]-links
-         * $params[3]-names
-         * 
-         * $loop-create loops => $l i$
-         * $iloop-create loop => j$
-         * 
-         * tester code
-         * echo'<pre style="text-align:left">';var_dump($params);echo'</pre>';
-         */
-        
-        $loop=count($params[0]);
-        $l=$loop;
-        
-        
-        /*
-         * Error swich :D
-         */
-        
-        switch(false) {
-            case isset($mybb->settings['lightavatars_google_seo']):
-            case strpos($mybb->settings['lightavatars_google_seo'],'%'):
-                return 'LA_1 PATTERN ERROR'.$content;
+        while($matchescount--) {
+            $info[$matches[2][$matchescount]]['position'][$matches[1][$matchescount]]=1;
+            //$info[$matches[2][$matchescount]]['replace'][$matches[0][$matchescount]]=1;
+            if($matches[2][$matchescount]!=0) {
+                $select[$matches[2][$matchescount]]=$matches[2][$matchescount];
+            } else {
+                $info[0]['avatar']='./'.$mybb->settings['useravatar'];
+                $info[0]['name']='unregistered';
+            }
         }
-        
-        if(strpos($mybb->settings['lightavatars_google_seo'], '%userid%')) {
-            $getid=explode('%userid%',$mybb->settings['lightavatars_google_seo']);
-            if(!empty($getid[1])) {
-                while($l--) {
-                    $la[$l]['id']=explode($getid[1], $params[2][$l])[0];
-                }
-            }
-            if(!isset($la)) {
-                while($l--) {
-                    $la[$l]['id']=$params[2][$l];
-                }
-            }
-            $i=$loop;
-            while($i--) {
-                    $la[$i]['id']=explode($getid[0], $la[$i]['id'])[1];
-                    $info[$params[1][$i]][$la[$i]['id']]=$params[2][$i];
-                    
-                    $select[$la[$i]['id']]=$la[$i]['id'];
-            }
+        if(isset($select)) {
             $selected='uid='.implode(' OR uid=',$select);
-        } else {
-            $getid=explode('%username%',$mybb->settings['lightavatars_google_seo']);
-            if(!empty($getid[1])) {
-                while($l--) {
-                    $la[$l]['name']=explode($getid[1], $params[2][$l])[0];
-                }
-            }
-            if(!isset($la)) {
-                while($l--) {
-                    $la[$l]['name']=$params[2][$l];
-                }
-            }
-            $i=$loop;
-            while($i--) {
-                    $la[$i]['name']=explode($getid[0], $la[$i]['id'])[1];
-                    $info[$params[1][$i]][$la[$i]['name']]=$params[2][$i];
-                    $select[$la[$i]['name']]=$la[$i]['name'];  
-            }
-            $selected='username='.implode(' OR username=',$select);
-            echo $selected;
-        } 
-        $avatardata=$db->simple_select(
-                "users", 
-                "uid,username,avatar", 
+            $avatardata=$db->simple_select(
+                'users', 
+                'uid,username,avatar', 
                 $selected, 
                 NULL
                 );
-        
-        $iloop=count($info);
-        
-        echo'<pre style="text-align:left">';var_dump($info);echo'</pre>';
-        
-        if(strpos($mybb->settings['lightavatars_google_seo'], '%userid%')) {
-            while($base=$db->fetch_array($avatardata)) {
-                $j=$iloop;
-                while($j--) {
-                    
-                }
-                /*$masterstyle['avatar']=explode(' ',$mybb->settings['lightavatars_'.$info[$base['uid']][1]]);
-                echo 'lightavatars_'.$info[$base['uid']][1]."<br>";
-                echo'<pre style="text-align:left">';var_dump($masterstyle['avatar']);echo'</pre>';
-                /*$masterstyle['avatar']="avatar--".implode(" avatar--",$masterstyle['avatar']);
-                $avatartocontent='<div class=""'*/
-                $content=str_replace('{+LIGHTAVATARS+}'.$base['username'].'{+ENDofBLOCK+}','cis',$content);
-            }
         }
-        /*
         while($base=$db->fetch_array($avatardata)) {
-            
-            $content=str_replace('{+LIGHTAVATARS+}'.$base['username'].'{+ENDofBLOCK+}','cis'.$base['username'],$content);
-            echo'<pre style="text-align:left">';
-            var_dump($base);
-            echo'</pre>';
+            $info[$base['uid']]['avatar']=$base['avatar'];
+            $info[$base['uid']]['name']=$base['username'];
         }
         
-        /*
-        
-        $urlpattern= explode('%', $mybb->settings['lightavatars_google_seo']);
-        if(isset($urlpattern[4])) {
-            if($urlpattern[3]==='userid') {
-                while($l--) {
-                    $la_user['id'][explode($urlpattern[2],$params[2][$l])[1]]=$params[2][$l];
-                }
-            } else {
-                while($l--) {
-                    $la_temp=explode($urlpattern[0],$params[2][$l])[1];
-                    $la_user['id'][explode($urlpattern[2],$la_temp)[0]]=$params[2][$l];
-                }
-            }
-        } else {
-            if($urlpattern[1]==='userid') {
-                while($l--) {
-                    $la_user['id'][explode($urlpattern[0], $params[2][$l])[1]]=$params[2][$l];
-                }
-            } else {
-                while($l--) {
-                    $la_user['name'][explode($urlpattern[0],$params[2][$l])[1]]=$params[2][$l];
-                }
-            }
-        }
-        
-        echo'<pre style="text-align:left">';
-        var_dump($la_user);
-        echo'</pre>';
-        
-        $i=$loop;
-        $new_loop=0;
-        if(isset($la_user['id'])) {
-            while($i--) {
-                $toreplace[$i]=explode('{%ENDofGUARD%}',$params[0][$i]);
-                $content=str_replace($toreplace[$i][1], '{-%AVATAR%}'.$la_user['id'][$i].'{%ENDofAVATAR%}', $content);
-                if(preg_match('#{-%AVATAR%}'.$la_user['id'][$i].'{%ENDofAVATAR%}#', $content)){
-                    $new_loop++;
-                    
-                }
-            }
-            while($new_loop--) {
-                $la_final[$i]=[
-                    $la_user['id'][$i] => 1,
-                    $params[2][$i] => 1,
-                    $params[3][$i] => 1
-                    
-                ];
-            }
-            
-            if(preg_match('#{%AVATAR%}.*?{%ENDofAVATAR%}#',$content)) {
-                $content=preg_replace('#{%AVATAR%}.*?{%ENDofAVATAR%}#', '{-%AVATAR%}0{%ENDofAVATAR%}', $content);
-            }
-            foreach($la_user['id'] as $la_id) {
-                if(!empty($la_id)) {
-                    $select[]=$la_id;
-                }
-            }
-            $selected='uid='.implode(' OR uid=',$select);
-            
-        } else {
-            while($i--) {
-                $toreplace[$i]=explode('{%ENDofGUARD%}',$params[0][$i]);
-                $content=str_replace($toreplace[$i][1], '{-%AVATAR%}'.$la_user['name'][$i].'{%ENDofAVATAR%}', $content);
-                $la_final[$la_user['name'][$i]]=[$params[2][$i]];
-            }
-            if(preg_match('#{%AVATAR%}.*?{%ENDofAVATAR%}#',$content)) {
-                $content=preg_replace('#{%AVATAR%}.*?{%ENDofAVATAR%}#', '{-%AVATAR%}0{%ENDofAVATAR%}', $content);
-            }
-            
-            foreach($la_user['name'] as $la_name) {
-                if(!empty($la_name)) {
-                    $select[]=$la_name;
-                }
-            }
-            $selected='username='.implode(' OR username=',$select);
-        }
-        
-        $avatardata=$db->simple_select("users", 
-                "uid,username,avatar", 
-                $selected, 
-                NULL
-                );
-        
-        echo '<pre style="text-align:left">';
-        var_dump($la_final);
-        echo'</pre>';
-        while($base=$db->fetch_array($avatardata)){
-           
+        foreach($info as $key => $avatar){
             if($mybb->settings['lightavatars_custom']) {
-                $style['avatar']=' avatar';
-                $style['block']=' avatar__block avatar_block--'.$base['username'];
-                $style['link']=' avatar__link avatar__link--'.$base['username'];
-                $style['img']=' avatar__img avatar__img--'.$base['username'];
++                $style['avatar']=' avatar avatar--'.$avatar['name'];
++                $style['link']=' avatar__link avatar__link--'.$avatar['name'];
++                $style['img']=' avatar__img avatar__img--'.$avatar['name'];
             }
             
-            if(!empty($mybb->settings['lightavatars_block'])){ 
-                $masterstyle['block']=explode(' ',$mybb->settings['lightavatars_block']);
-                $masterstyle['block']="avatar__block--".implode(" avatar__block--",$masterstyle['block']);
+            $masterstyle['link']=explode(' ',$mybb->settings['lightavatars_link']);
+            $masterstyle['link']="avatar__link--".implode(" avatar__link--",$masterstyle['link']);
+            $masterstyle['img']=explode(' ',$mybb->settings['lightavatars_img']);
+            $masterstyle['img']="avatar__img--".implode(" avatar__img--",$masterstyle['img']);
+            
+            $avatargen='';
+            $avatargen='<img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].' user avatar image" class="'.$masterstyle['img'].$style['img'].'">'; 
+            if($key!==0) {
+                $avatargen='<a href="'.$mybb->settings['bburl'].'/'.get_profile_link($key).'" title="'.$avatar['name'].'" rel="nofollow" class="'.$masterstyle['link'].$style['link'].'">'.$avatargen.'</a>';
             }
             
-            if(!empty($mybb->settings['lightavatars_link'])){ 
-                $masterstyle['link']=explode(' ',$mybb->settings['lightavatars_link']);
-                $masterstyle['link']="avatar__link--".implode(" avatar--__link",$masterstyle['link']);
+            foreach($avatar['position'] as $position => $truevalue) {
+                $masterstyle['avatar']=explode(' ',$mybb->settings['lightavatars_'.$position]);
+                $masterstyle['avatar']="avatar--".implode(" avatar--",$masterstyle['avatar']);
+                $content=str_replace('{+LIGHTAVATARS+}'.$position.'|'.$key.'{+ENDofBLOCK+}', '<div class="'.$masterstyle['avatar'].$style['avatar'].'">'.$avatargen.'</div>', $content);
             }
-            
-            if(!empty($mybb->settings['lightavatars_img'])){ 
-                $masterstyle['img']=explode(' ',$mybb->settings['lightavatars_img']);
-                $masterstyle['img']="avatar__img--".implode(" avatar--__img",$masterstyle['img']);
-            }
-            
-            
-            $avatars[$base['uid']]='<div class="'.$masterstyle['block'].$style['block'].'"><a href="'.$array[$base['uid']][0].'" class="'.$masterstyle['link'].$style['link'].'" title="'.$array[$base['uid']][1].'" rel="nofollow"><img src="';
-            if($base['avatar']) {$avatars[$base['uid']].=$base['avatar'];} else {$avatars[$base['uid']].=$mybb->settings['useravatar'];}
-            $avatars[$base['uid']].='" alt="'.$array[$base['uid']][1].' avatar image" class="'.$masterstyle['img'].$style['img'].'" onerror="this.src=\''.$mybb->settings['useravatar'].'\'"/></a></div></div>';
-            
         }
-        $avatars[0]='<div class="'.$masterstyle['block'].' avatar__block"><img src="'.$mybb->settings['useravatar'].'" alt="default avatar image" class="'.$masterstyle['img'].' avatar__img" onerror="this.src=\''.$mybb->settings['useravatar'].'\'"/></div></div>';
-        
-        while($loop--) {
-            if(!isset($avatars[$match[$loop]])){
-                $avatars[$match[$loop]]=$avatars[0];
-            }
-
-            $masterstyle['avatar']=explode(' ',$mybb->settings['lightavatars_'.$params[1][$loop]]);
-            $masterstyle['avatar']="avatar--".implode(" avatar--",$masterstyle['avatar']);
-            $content=str_replace(
-                    '{%GUARD%}'.$params[1][$loop].'{%ENDofGUARD%}{%AVATAR%}'.$match[$loop].'{%ENDofAVATAR%}', 
-                    '<div class='.$masterstyle['avatar'].$style['avatar'].'>'.$avatars[$match[$loop]], 
-                    $content);
-        }
-        */
     }
 }
+$time_end = microtime(true);
+        $time = $time_end - $time_start;
+        echo '<br>'.$time.'<br>';
