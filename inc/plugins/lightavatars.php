@@ -326,10 +326,10 @@ class LightAvatars
             $masterstyle['img']="avatar__img--".implode(" avatar__img--",$masterstyle['img']);
             
             $avatargen='';
-            if(!isset($avatar['avatar'])) {
+            if(empty($avatar['avatar'])) {
                 $avatar['avatar']='./'.$mybb->settings['useravatar'];
             }
-            $avatargen='<img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].' user avatar image" class="'.$masterstyle['img'].$style['img'].'" onError="this.src=\'imagefound.gif\';">'; 
+            $avatargen='<img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].' user avatar image" class="'.$masterstyle['img'].$style['img'].'" onError="this.src=\''.$mybb->settings['bburl'].'/'.$mybb->settings['useravatar'].'\';">'; 
             if($key!==0) {
                 $avatargen='<a href="'.$mybb->settings['bburl'].'/'.get_profile_link($key).'" title="'.$avatar['name'].'" rel="nofollow" class="'.$masterstyle['link'].$style['link'].'">'.$avatargen.'</a>';
             }
