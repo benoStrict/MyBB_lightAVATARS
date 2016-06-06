@@ -1,5 +1,4 @@
 <?php
-$time_start = microtime(true);
 
 /* 
  * The MIT License
@@ -293,7 +292,6 @@ class LightAvatars
         
         while($matchescount--) {
             $info[$matches[2][$matchescount]]['position'][$matches[1][$matchescount]]=1;
-            //$info[$matches[2][$matchescount]]['replace'][$matches[0][$matchescount]]=1;
             if($matches[2][$matchescount]!=0) {
                 $select[$matches[2][$matchescount]]=$matches[2][$matchescount];
             } else {
@@ -328,7 +326,10 @@ class LightAvatars
             $masterstyle['img']="avatar__img--".implode(" avatar__img--",$masterstyle['img']);
             
             $avatargen='';
-            $avatargen='<img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].' user avatar image" class="'.$masterstyle['img'].$style['img'].'">'; 
+            if(!isset($avatar['avatar'])) {
+                $avatar['avatar']='./'.$mybb->settings['useravatar'];
+            }
+            $avatargen='<img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].' user avatar image" class="'.$masterstyle['img'].$style['img'].'" onError="this.src=\'imagefound.gif\';">'; 
             if($key!==0) {
                 $avatargen='<a href="'.$mybb->settings['bburl'].'/'.get_profile_link($key).'" title="'.$avatar['name'].'" rel="nofollow" class="'.$masterstyle['link'].$style['link'].'">'.$avatargen.'</a>';
             }
@@ -339,8 +340,6 @@ class LightAvatars
                 $content=str_replace('{+LIGHTAVATARS+}'.$position.'|'.$key.'{+ENDofBLOCK+}', '<div class="'.$masterstyle['avatar'].$style['avatar'].'">'.$avatargen.'</div>', $content);
             }
         }
+        return $content;
     }
 }
-$time_end = microtime(true);
-        $time = $time_end - $time_start;
-        echo '<br>'.$time.'<br>';
