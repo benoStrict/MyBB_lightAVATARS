@@ -125,3 +125,8 @@ THE SOFTWARE.
 .lavatar__img--radiusborder {
     border-radius: 10px;
 }
+
+.lavatar--pwfix {
+    float: none;
+    margin-right: 0;
+}

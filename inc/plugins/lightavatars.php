@@ -161,7 +161,7 @@ function lightavatars_activate() {
             'title'=>$lang->lightavatars_private_messagebit, 
             'description'=>$lang->lightavatars_private_messagebit_desc, 
             'optionscode'=>'text', 
-            'value'=>'normal'
+            'value'=>'normal pwfix'
             ]
         ];
 
