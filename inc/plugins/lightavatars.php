@@ -83,7 +83,7 @@ function lightavatars_activate() {
             'name'=>'lightavatars_view', 
             'title'=>$lang->lightavatars_view, 
             'description'=>$avatarview, 
-            'optionscode'=>'select \n 1=forumbit_depth2_forum_lastpost \n 2=forumbit_depth1_forum_lastpost \n 3=forumdisplay_thread_firstpost \n 4=forumdisplay_thread_lastpost \n 5=search_results_posts_post \n 6=search_results_threads_thread_firstpost \n 7=search_results_threads_thread_lastpost', 
+            'optionscode'=>'select \n 1=forumbit_depth2_forum_lastpost \n 2=forumbit_depth1_forum_lastpost \n 3=forumdisplay_thread_firstpost \n 4=forumdisplay_thread_lastpost \n 5=search_results_posts_post \n 6=search_results_threads_thread_firstpost \n 7=search_results_threads_thread_lastpost \n 8=private_messagebit', 
             'value'=>'1'
             ],
         [
@@ -155,6 +155,13 @@ function lightavatars_activate() {
             'description'=>$lang->lightavatars_search_results_threads_thread_lastpost_desc, 
             'optionscode'=>'text', 
             'value'=>'normal'
+            ],
+        [
+            'name'=>'lightavatars_private_messagebit', 
+            'title'=>$lang->lightavatars_private_messagebit, 
+            'description'=>$lang->lightavatars_private_messagebit_desc, 
+            'optionscode'=>'text', 
+            'value'=>'normal'
             ]
         ];
 
@@ -182,7 +189,7 @@ function lightavatars_activate() {
                 "name"=>"lightavatars.css",
                 "cachefile"=>"lightavatars.css",
                 "tid"=>"1",
-                "attachedto"=>"forumdisplay.php|index.php|search.php",
+                "attachedto"=>"forumdisplay.php|index.php|search.php|private.php",
                 "stylesheet"=>$db->escape_string($styles),
                 "lastmodified"=>TIME_NOW
             ]
@@ -234,6 +241,11 @@ function lightavatars_activate() {
             '/<(.*?)(\s*?){\$lastpostdate}/', 
             '{+LIGHTAVATARS+}forumdisplay_thread_lastpost|{$thread[\'lastposteruid\']}{+ENDofBLOCK+}<\\1\\2{$lastpostdate}'
             );
+    find_replace_templatesets(
+            'private_messagebit', 
+            '#'.preg_quote('{$tofromusername}').'#',
+            '{+LIGHTAVATARS+}private_messagebit|{$tofromuid}{+ENDofBLOCK+}{$tofromusername}'
+            );
 }
 
 function lightavatars_deactivate() {
@@ -260,11 +272,6 @@ function lightavatars_deactivate() {
             ''
             );
     find_replace_templatesets(
-            'forumdisplay_thread', 
-            $deletepattern, 
-            '' 
-            );
-    find_replace_templatesets(
             'forumbit_depth1_forum_lastpost', 
             $deletepattern, 
             ''
@@ -285,7 +292,7 @@ function lightavatars_deactivate() {
             ''
             );
     find_replace_templatesets(
-            'search_results_threads_thread', 
+            'private_messagebit', 
             $deletepattern, 
             ''
             );
@@ -346,6 +353,8 @@ class LightAvatars
             $avatargen='<img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].' user avatar image" class="lavatar__img'.$masterstyle['img'].$style['img'].'" onError="this.src=\''.$mybb->settings['bburl'].'/'.$mybb->settings['useravatar'].'\';">'; 
             if($key!==0) {
                 $avatargen='<a href="'.$mybb->settings['bburl'].'/'.get_profile_link($key).'" title="'.$avatar['name'].'" rel="nofollow" class="lavatar__link'.$masterstyle['link'].$style['link'].'">'.$avatargen.'</a>';
+            } else {
+                $avatargen='<div class="lavatar__link'.$masterstyle['link'].$style['link'].'">'.$avatargen.'</div>';
             }
             
             foreach($avatar['position'] as $position => $truevalue) {

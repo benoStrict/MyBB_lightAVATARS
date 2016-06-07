@@ -1,31 +1,56 @@
 <?php
-/*************************************************************\
-*This file is part of "LastPosterAvatarLight" plugin for MyBB.
-* Copyright © 2016 @ Artur "Niespecjalny" Michalak @ All rights reserved
-* 
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU Lesser General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-* 
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU Lesser General Public License for more details.
-* 
-* You should have received a copy of the GNU Lesser General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-\*************************************************************/
-$l['lastposteravatarlight_desc'] = "Shows lastposters and owners avatar.";
-$l['setting_group_lastposteravatarlight_desc'] = "LastPosterAvatarLight settings";
-$l['lastposteravatarlight_t']="Avatar on threads and search of topics";
-$l['lastposteravatarlight_t_desc']="Size of avatars on threads and search of topics(default 30|30)";
-$l['lastposteravatarlight_f']="Avatar on Forums";
-$l['lastposteravatarlight_f_desc']="Size of avatar on Forums view(default 45|45)";
-$l['lastposteravatarlight_s']="Avatar on search";
-$l['lastposteravatarlight_s_desc']="Size of avatars on search(default 30|30)";
-$l['lastposteravatarlight_i']="Owner avatar on threads";
-$l['lastposteravatarlight_i_desc']="Enable/Disable";
-$l['lastposteravatarlight_p']="Avatar on search";
-$l['lastposteravatarlight_p_desc']="Enable/Disable";
-?>
+
+/*
+The MIT License
+
+Copyright 2016 MiArz.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+/* 
+    Created on : 2016-07-02, 21:27:06
+    Author     : MiArz
+*/
+
+$l['lightavatars_view'] = "Preview";
+$l['lightavatars_custom'] = "Individual styles";
+$l['lightavatars_custom_desc'] = "Adds a css class with the username. Example: .lavatar--exampleuser{style} .lavatar__link--exampleuser{style} .lavatar__img--exampleuser{style}";
+$l['lightavatars_link'] = "Classes for the link to user's profile";
+$l['lightavatars_link_desc'] = "There are no standard styles at the moment";
+$l['lightavatars_img'] = "Classes for an user's avatar image;";
+$l['lightavatars_img_desc'] = "Styles: normal | small | big | normalborder | smallborder | bigborder | whiteborder | blackborder | greyborder | lightgreyborder | greyfilter | invertfilter | saturatefilter | sepiafilter | circleborder | radiusborder";
+$l['lightavatars_forumbit_depth2_forum_lastpost'] = "Styles for the template called forumbit_depth2_forum_lastpost";
+$l['lightavatars_forumbit_depth2_forum_lastpost_desc'] = "Styles: hide | normal | small | big";
+$l['lightavatars_forumbit_depth1_forum_lastpost'] = "Styles for the template called forumbit_depth1_forum_lastpost";
+$l['lightavatars_forumbit_depth1_forum_lastpost_desc'] = "Styles: hide | normal | small | big";
+
+$l['lightavatars_forumdisplay_thread_firstpost'] = "Author's styles for the template called forumdisplay_thread";
+$l['lightavatars_forumdisplay_thread_firstpost_desc'] = "Styles: hide | normal | small | big";
+$l['lightavatars_forumdisplay_thread_lastpost'] = "Last poster's styles for the template called forumdisplay_thread";
+$l['lightavatars_forumdisplay_thread_lastpost_desc'] = "Styles: hide | normal | small | big";
+
+$l['lightavatars_search_results_posts_post'] = "Styles for the template called search_results_posts_post";
+$l['lightavatars_search_results_posts_post_desc'] = "Styles: hide | normal | small | big";
+$l['lightavatars_search_results_threads_thread_firstpost'] = "Author's styles for the template called search_results_threads_thread";
+$l['lightavatars_search_results_threads_thread_firstpost_desc'] = "Styles: hide | normal | small | big";
+$l['lightavatars_search_results_threads_thread_lastpost'] = "Last poster's styles for the template called search_results_threads_thread";
+$l['lightavatars_search_results_threads_thread_lastpost_desc'] = "Styles: hide | normal | small | big";
+
+$l['lightavatars_private_messagebit'] = "Styles for the template called private_messagebit";
+$l['lightavatars_private_messagebit_desc'] = "style:   hide | normal | small | big";

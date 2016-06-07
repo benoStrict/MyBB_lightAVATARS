@@ -37,8 +37,21 @@ window.onload = function() {
     document.getElementById('la_avatar').className=avatarvalue;
     
     selected.addEventListener("change", function(){
-        var optionchagevalue=selected.options[selected.selectedIndex].text;
-        var avatarchagevalue=document.getElementById('setting_lightavatars_'+optionchagevalue).value;
+        optionvalue=selected.options[selected.selectedIndex].text;
+        var avatarchagevalue=document.getElementById('setting_lightavatars_'+optionvalue).value;
+        avatarchagevalue=avatarchagevalue.split(' ');
+        avatarchagevalue='lavatar lavatar--'+avatarchagevalue.join(' lavatar--');
+        document.getElementById('la_avatar').className=avatarchagevalue;
+        
+        document.getElementById('setting_lightavatars_'+optionvalue).addEventListener("change", function(){
+            var avatarchagevalue=document.getElementById('setting_lightavatars_'+optionvalue).value;
+            avatarchagevalue=avatarchagevalue.split(' ');
+            avatarchagevalue='lavatar lavatar--'+avatarchagevalue.join(' lavatar--');
+            document.getElementById('la_avatar').className=avatarchagevalue;
+        });
+    });
+    document.getElementById('setting_lightavatars_'+optionvalue).addEventListener("change", function(){
+        var avatarchagevalue=document.getElementById('setting_lightavatars_'+optionvalue).value;
         avatarchagevalue=avatarchagevalue.split(' ');
         avatarchagevalue='lavatar lavatar--'+avatarchagevalue.join(' lavatar--');
         document.getElementById('la_avatar').className=avatarchagevalue;

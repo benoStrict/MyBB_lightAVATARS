@@ -34,7 +34,7 @@ $l['lightavatars_custom_desc'] = "Dodaję klasę css z nazwą użytkownika. Przy
 $l['lightavatars_link'] = "Klasy dla linku do profilu użytkownika";
 $l['lightavatars_link_desc'] = "na ten moment nie ma standardowych styli";
 $l['lightavatars_img'] = "Klasy dla obrazka avatara użytkownika";
-$l['lightavatars_img_desc'] = "style:   normal | small | big | normalborder | smallborder | bigborder | whiteborder | blackborder | greyborder | lightgreyborder | greyfilter | invertfilter | saturatefilter | sepiafilter";
+$l['lightavatars_img_desc'] = "style:   normal | small | big | normalborder | smallborder | bigborder | whiteborder | blackborder | greyborder | lightgreyborder | greyfilter | invertfilter | saturatefilter | sepiafilter | circleborder | radiusborder";
 $l['lightavatars_forumbit_depth2_forum_lastpost'] = "Style dla szablonu forumbit_depth2_forum_lastpost";
 $l['lightavatars_forumbit_depth2_forum_lastpost_desc'] = "style:   hide | normal | small | big";
 $l['lightavatars_forumbit_depth1_forum_lastpost'] = "Style dla szablonu forumbit_depth1_forum_lastpost";
@@ -51,3 +51,6 @@ $l['lightavatars_search_results_threads_thread_firstpost'] = "Style autora dla s
 $l['lightavatars_search_results_threads_thread_firstpost_desc'] = "style:   hide | normal | small | big";
 $l['lightavatars_search_results_threads_thread_lastpost'] = "Style ostatnio piszącego dla search_results_threads_thread";
 $l['lightavatars_search_results_threads_thread_lastpost_desc'] = "style:   hide | normal | small | big";
+
+$l['lightavatars_private_messagebit'] = "Style dla szablonu private_messagebit";
+$l['lightavatars_private_messagebit_desc'] = "style:   hide | normal | small | big";
