@@ -60,7 +60,7 @@ function lightavatars_is_installed() {
 }
 
 function lightavatars_activate() {
-    global $db, $cache, $lang;
+    global $db, $cache, $lang, $mybb;
     $lang->load('config_lightavatars');
 
     $sgid=$db->insert_query(
@@ -70,8 +70,22 @@ function lightavatars_activate() {
                 "title"=>"LightAVATARS", 
                 "description"=>$db->escape_string($lang->setting_group_lightavatars_desc)
             ]);
+    
+    $avatarview='
+    <div class="lavatar">
+        <a href="#" title="username" rel="nofollow" id="la_link" class="">
+            <img src="'.$mybb->settings['bburl'].'/'.$mybb->settings['useravatar'].'" id="la_img" class="">
+        </a>
+    </div><script src="'.$mybb->settings['bburl'].'/resources/settings.js"></script>'.$lang->lightavatars_custom_desc;
 
     $sg=[
+        [
+            'name'=>'lightavatars_view', 
+            'title'=>$lang->lightavatars_view, 
+            'description'=>$avatarview, 
+            'optionscode'=>'', 
+            'value'=>''
+            ],
         [
             'name'=>'lightavatars_custom', 
             'title'=>$lang->lightavatars_custom, 
@@ -84,63 +98,63 @@ function lightavatars_activate() {
             'title'=>$lang->lightavatars_link, 
             'description'=>$lang->lightavatars_link_desc, 
             'optionscode'=>'text', 
-            'value'=>'inherit'
+            'value'=>'normal'
             ],
         [
             'name'=>'lightavatars_img', 
             'title'=>$lang->lightavatars_img, 
             'description'=>$lang->lightavatars_img_desc, 
             'optionscode'=>'text', 
-            'value'=>'inherit'
+            'value'=>'normal'
             ],
         [
             'name'=>'lightavatars_forumbit_depth2_forum_lastpost', 
             'title'=>$lang->lightavatars_forumbit_depth2_forum_lastpost, 
             'description'=>$lang->lightavatars_forumbit_depth2_forum_lastpost_desc, 
             'optionscode'=>'text', 
-            'value'=>'small'
+            'value'=>'normal'
             ],
         [
             'name'=>'lightavatars_forumbit_depth1_forum_lastpost', 
             'title'=>$lang->lightavatars_forumbit_depth1_forum_lastpost, 
             'description'=>$lang->lightavatars_forumbit_depth1_forum_lastpost_desc, 
             'optionscode'=>'text', 
-            'value'=>'small'
+            'value'=>'normal'
             ],
         [
             'name'=>'lightavatars_forumdisplay_thread_firstpost', 
             'title'=>$lang->lightavatars_forumdisplay_thread_firstpost, 
             'description'=>$lang->lightavatars_forumdisplay_thread_firstpost_desc, 
             'optionscode'=>'text', 
-            'value'=>'small'
+            'value'=>'normal'
             ],
         [
             'name'=>'lightavatars_forumdisplay_thread_lastpost', 
             'title'=>$lang->lightavatars_forumdisplay_thread_lastpost, 
             'description'=>$lang->lightavatars_forumdisplay_thread_lastpost_desc, 
             'optionscode'=>'text', 
-            'value'=>'small'
+            'value'=>'normal'
             ],
         [
             'name'=>'lightavatars_search_results_posts_post', 
             'title'=>$lang->lightavatars_search_results_posts_post, 
             'description'=>$lang->lightavatars_search_results_posts_post_desc, 
             'optionscode'=>'text', 
-            'value'=>'small'
+            'value'=>'normal'
             ],
         [
             'name'=>'lightavatars_search_results_threads_thread_firstpost', 
             'title'=>$lang->lightavatars_search_results_threads_thread_firstpost, 
             'description'=>$lang->lightavatars_search_results_threads_thread_firstpost_desc, 
             'optionscode'=>'text', 
-            'value'=>'small'
+            'value'=>'normal'
             ],
         [
             'name'=>'lightavatars_search_results_threads_thread_lastpost', 
             'title'=>$lang->lightavatars_search_results_threads_thread_lastpost, 
             'description'=>$lang->lightavatars_search_results_threads_thread_lastpost_desc, 
             'optionscode'=>'text', 
-            'value'=>'small'
+            'value'=>'normal'
             ]
         ];
 
@@ -160,7 +174,7 @@ function lightavatars_activate() {
             'themestylesheets', 
             'name="lightavatars.css" AND tid=1'
             );
-    $styles=require_once __DIR__.'/../../resources/lightavatars.css';
+    $styles=file_get_contents(__DIR__.'/../../resources/lightavatars.css');
     
     $db->insert_query(
             "themestylesheets", 
@@ -315,29 +329,29 @@ class LightAvatars
         
         foreach($info as $key => $avatar){
             if($mybb->settings['lightavatars_custom']) {
-+                $style['avatar']=' avatar avatar--'.$avatar['name'];
-+                $style['link']=' avatar__link avatar__link--'.$avatar['name'];
-+                $style['img']=' avatar__img avatar__img--'.$avatar['name'];
++                $style['avatar']=' lavatar--'.$avatar['name'];
++                $style['link']=' lavatar__link--'.$avatar['name'];
++                $style['img']=' lavatar__img--'.$avatar['name'];
             }
             
             $masterstyle['link']=explode(' ',$mybb->settings['lightavatars_link']);
-            $masterstyle['link']="avatar__link--".implode(" avatar__link--",$masterstyle['link']);
+            $masterstyle['link']=" lavatar__link--".implode(" lavatar__link--",$masterstyle['link']);
             $masterstyle['img']=explode(' ',$mybb->settings['lightavatars_img']);
-            $masterstyle['img']="avatar__img--".implode(" avatar__img--",$masterstyle['img']);
+            $masterstyle['img']=" lavatar__img--".implode(" lavatar__img--",$masterstyle['img']);
             
             $avatargen='';
             if(empty($avatar['avatar'])) {
                 $avatar['avatar']='./'.$mybb->settings['useravatar'];
             }
-            $avatargen='<img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].' user avatar image" class="'.$masterstyle['img'].$style['img'].'" onError="this.src=\''.$mybb->settings['bburl'].'/'.$mybb->settings['useravatar'].'\';">'; 
+            $avatargen='<img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].' user avatar image" class="lavatar__img'.$masterstyle['img'].$style['img'].'" onError="this.src=\''.$mybb->settings['bburl'].'/'.$mybb->settings['useravatar'].'\';">'; 
             if($key!==0) {
-                $avatargen='<a href="'.$mybb->settings['bburl'].'/'.get_profile_link($key).'" title="'.$avatar['name'].'" rel="nofollow" class="'.$masterstyle['link'].$style['link'].'">'.$avatargen.'</a>';
+                $avatargen='<a href="'.$mybb->settings['bburl'].'/'.get_profile_link($key).'" title="'.$avatar['name'].'" rel="nofollow" class="lavatar__link'.$masterstyle['link'].$style['link'].'">'.$avatargen.'</a>';
             }
             
             foreach($avatar['position'] as $position => $truevalue) {
                 $masterstyle['avatar']=explode(' ',$mybb->settings['lightavatars_'.$position]);
-                $masterstyle['avatar']="avatar--".implode(" avatar--",$masterstyle['avatar']);
-                $content=str_replace('{+LIGHTAVATARS+}'.$position.'|'.$key.'{+ENDofBLOCK+}', '<div class="'.$masterstyle['avatar'].$style['avatar'].'">'.$avatargen.'</div>', $content);
+                $masterstyle['avatar']=" lavatar--".implode(" lavatar--",$masterstyle['avatar']);
+                $content=str_replace('{+LIGHTAVATARS+}'.$position.'|'.$key.'{+ENDofBLOCK+}', '<div class="lavatar'.$masterstyle['avatar'].$style['avatar'].'">'.$avatargen.'</div>', $content);
             }
         }
         return $content;
