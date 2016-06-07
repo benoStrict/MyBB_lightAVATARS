@@ -72,19 +72,19 @@ function lightavatars_activate() {
             ]);
     
     $avatarview='
-    <div class="lavatar">
+    <div id="la_avatar" class="lavatar">
         <a href="#" title="username" rel="nofollow" id="la_link" class="">
             <img src="'.$mybb->settings['bburl'].'/'.$mybb->settings['useravatar'].'" id="la_img" class="">
         </a>
-    </div><script src="'.$mybb->settings['bburl'].'/resources/settings.js"></script>'.$lang->lightavatars_custom_desc;
+    </div><script src="'.$mybb->settings['bburl'].'/resources/settings.js"></script>';
 
     $sg=[
         [
             'name'=>'lightavatars_view', 
             'title'=>$lang->lightavatars_view, 
             'description'=>$avatarview, 
-            'optionscode'=>'', 
-            'value'=>''
+            'optionscode'=>'select \n 1=forumbit_depth2_forum_lastpost \n 2=forumbit_depth1_forum_lastpost \n 3=forumdisplay_thread_firstpost \n 4=forumdisplay_thread_lastpost \n 5=search_results_posts_post \n 6=search_results_threads_thread_firstpost \n 7=search_results_threads_thread_lastpost', 
+            'value'=>'1'
             ],
         [
             'name'=>'lightavatars_custom', 
@@ -98,7 +98,7 @@ function lightavatars_activate() {
             'title'=>$lang->lightavatars_link, 
             'description'=>$lang->lightavatars_link_desc, 
             'optionscode'=>'text', 
-            'value'=>'normal'
+            'value'=>''
             ],
         [
             'name'=>'lightavatars_img', 

@@ -26,6 +26,10 @@ THE SOFTWARE.
     Author     : MiArz
 */
 
+.lavatar--hide {
+    display: none;
+}
+
 .lavatar, .lavatar--normal {
     width: 50px;
     height: 50px;
@@ -61,22 +65,10 @@ THE SOFTWARE.
     max-height: 100%;
 }
 
-.lavatar__link, .lavatar__link--normal {
-    width: 90%;
-    height: 90%;
+.lavatar__link {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
-}
-
-.lavatar__link--small {
-    width: 75%;
-    height:75%;
-}
-
-.lavatar__link--big {
-    width: 100%;
-    height: 100%;
 }
 
 .lavatar__img--normalborder {
@@ -123,5 +115,5 @@ THE SOFTWARE.
 }
 
 .lavatar__img--sepiafilter {
-    filter: sepia(800%);
+    filter: sepia(80%);
 }

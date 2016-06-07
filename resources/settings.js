@@ -28,4 +28,19 @@ window.onload = function() {
         imgvaluechage='lavatar__img lavatar__img--'+imgvaluechage.join(' lavatar__img--');
         document.getElementById('la_img').className=imgvaluechage;
     });
+    
+    var selected = document.getElementById('setting_lightavatars_view');
+    var optionvalue=selected.options[selected.selectedIndex].text;
+    var avatarvalue=document.getElementById('setting_lightavatars_'+optionvalue).value;
+    avatarvalue=avatarvalue.split(' ');
+    avatarvalue='lavatar lavatar--'+avatarvalue.join(' lavatar--');
+    document.getElementById('la_avatar').className=avatarvalue;
+    
+    selected.addEventListener("change", function(){
+        var optionchagevalue=selected.options[selected.selectedIndex].text;
+        var avatarchagevalue=document.getElementById('setting_lightavatars_'+optionchagevalue).value;
+        avatarchagevalue=avatarchagevalue.split(' ');
+        avatarchagevalue='lavatar lavatar--'+avatarchagevalue.join(' lavatar--');
+        document.getElementById('la_avatar').className=avatarchagevalue;
+    });
 };
