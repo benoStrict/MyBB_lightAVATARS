@@ -72,9 +72,9 @@ function lightavatars_activate() {
             ]);
     
     $avatarview='
-    <div id="la_avatar" class="lavatar">
-        <a href="#" title="username" rel="nofollow" id="la_link" class="">
-            <img src="../'.$mybb->settings['useravatar'].'" id="la_img" class="">
+    <div id="la_avatar">
+        <a href="#" title="username" rel="nofollow" id="la_link">
+            <img src="'.$mybb->settings['bburl'].'/resources/la_tester.png" id="la_img">
         </a>
     </div><script src="'.$mybb->settings['bburl'].'/resources/settings.js"></script>';
 
