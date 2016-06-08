@@ -33,16 +33,24 @@ $plugins->hooks['pre_output_page'][5]['LightAvatars->getAvatars']=[
 ];
 
 function lightavatars_info() {
-    global $lang;
+    global $lang, $db;
     $lang->load('config_lightavatars');
+    
+    $query = $db->simple_select('settinggroups', 'gid', "name='lightavatars'");
+    $gid = $db->fetch_field($query, 'gid');
+    if($gid) {
+        $linktodesc=$lang->lightavatars_desc.'<br><strong><a href="index.php?module=config-settings&amp;action=change&amp;gid='.$gid.'">'.$lang->lightavatars_shortcut.'</a></strong>';
+    } else {
+        $linktodesc=$lang->lightavatars_desc;
+    }
     
     return [
         "name" => "LightAVATARS",
-        "description" => $lang->lightavatars_desc,
+        "description" => $linktodesc,
         "website" => "",
         "author" => "MiArz",
         "authorsite" => "",
-        "version" => "0.9",
+        "version" => "0.9.4",
         "codename" => "LightAvatars",
         "compatibility" => "18*"
     ];
@@ -68,7 +76,7 @@ function lightavatars_activate() {
             [
                 "name"=>"lightavatars", 
                 "title"=>"LightAVATARS", 
-                "description"=>$db->escape_string($lang->setting_group_lightavatars_desc)
+                "description"=>$db->escape_string($lang->lightavatars_desc)
             ]);
     
     $avatarview='
@@ -161,7 +169,7 @@ function lightavatars_activate() {
             'title'=>$lang->lightavatars_private_messagebit, 
             'description'=>$lang->lightavatars_private_messagebit_desc, 
             'optionscode'=>'text', 
-            'value'=>'normal pwfix'
+            'value'=>'small'
             ]
         ];
 
@@ -358,6 +366,14 @@ class LightAvatars
             }
             
             foreach($avatar['position'] as $position => $truevalue) {
+                switch($position) {
+                    case 'private_messagebit':
+                        $mybb->settings['lightavatars_'.$position].=' pmfix';
+                        break;
+                    case 'search_results_posts_post':
+                        $mybb->settings['lightavatars_'.$position].=' searchpostfix';
+                        break;
+                }
                 $masterstyle['avatar']=explode(' ',$mybb->settings['lightavatars_'.$position]);
                 $masterstyle['avatar']=" lavatar--".implode(" lavatar--",$masterstyle['avatar']);
                 $content=str_replace('{+LIGHTAVATARS+}'.$position.'|'.$key.'{+ENDofBLOCK+}', '<div class="lavatar'.$masterstyle['avatar'].$style['avatar'].'">'.$avatargen.'</div>', $content);

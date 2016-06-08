@@ -53,4 +53,7 @@ $l['lightavatars_search_results_threads_thread_lastpost'] = "Style ostatnio pisz
 $l['lightavatars_search_results_threads_thread_lastpost_desc'] = "style:   hide | normal | small | big";
 
 $l['lightavatars_private_messagebit'] = "Style dla szablonu private_messagebit";
-$l['lightavatars_private_messagebit_desc'] = "style:   hide | normal | small | big | pwfix";
+$l['lightavatars_private_messagebit_desc'] = "style:   hide | normal | small | big";
+
+$l['lightavatars_desc'] = 'Dodaje awatary na forum';
+$l['lightavatars_shortcut'] = 'Ustawienia';

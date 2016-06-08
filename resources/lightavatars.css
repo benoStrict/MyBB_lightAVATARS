@@ -126,7 +126,13 @@ THE SOFTWARE.
     border-radius: 10px;
 }
 
-.lavatar--pwfix {
-    float: none;
-    margin-right: 0;
+.lavatar--pmfix {
+    float: none !important;
+    margin-right: 0 !important;
+}
+
+.lavatar--searchpostfix {
+    float: none !important;
+    display: inline-block !important;
+    vertical-align: middle;
 }
