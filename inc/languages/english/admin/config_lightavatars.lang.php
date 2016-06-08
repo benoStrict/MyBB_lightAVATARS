@@ -55,5 +55,5 @@ $l['lightavatars_search_results_threads_thread_lastpost_desc'] = "Styles: hide |
 $l['lightavatars_private_messagebit'] = "Styles for the template called private_messagebit";
 $l['lightavatars_private_messagebit_desc'] = "style:   hide | normal | small | big";
 
-$l['lightavatars_desc'] = 'Display user avatars on forum';
+$l['lightavatars_desc'] = 'Display users\' avatars on the forum';
 $l['lightavatars_shortcut'] = 'Settings';
