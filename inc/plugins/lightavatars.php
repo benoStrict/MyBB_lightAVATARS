@@ -51,7 +51,7 @@ function lightavatars_info() {
         "author" => "MiArz",
         "authorsite" => "",
         "version" => "0.9.4",
-        "codename" => "LightAvatars",
+        "codename" => "LastPosterAvatarLight",
         "compatibility" => "18*"
     ];
 }
