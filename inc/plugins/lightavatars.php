@@ -3,7 +3,7 @@
 /* 
  * The MIT License
  *
- * Copyright 2016 MiArz.
+ * Copyright 2016 Arthur.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,9 +48,9 @@ function lightavatars_info() {
         "name" => "LightAVATARS",
         "description" => $linktodesc,
         "website" => "",
-        "author" => "MiArz",
+        "author" => "KICek",
         "authorsite" => "",
-        "version" => "0.9.4",
+        "version" => "0.9.9",
         "codename" => "LastPosterAvatarLight",
         "compatibility" => "18*"
     ];
@@ -81,8 +81,8 @@ function lightavatars_activate() {
     
     $avatarview='
     <div id="la_avatar">
-        <a href="#" title="username" rel="nofollow" id="la_link">
-            <img src="'.$mybb->settings['bburl'].'/resources/la_tester.png" id="la_img">
+        <a href="#" title="username" rel="nofollow">
+            <img src="'.$mybb->settings['bburl'].'/resources/la_tester.png">
         </a>
     </div><script src="'.$mybb->settings['bburl'].'/resources/settings.js"></script>';
 
@@ -91,7 +91,7 @@ function lightavatars_activate() {
             'name'=>'lightavatars_view', 
             'title'=>$lang->lightavatars_view, 
             'description'=>$avatarview, 
-            'optionscode'=>'select \n 1=forumbit_depth2_forum_lastpost \n 2=forumbit_depth1_forum_lastpost \n 3=forumdisplay_thread_firstpost \n 4=forumdisplay_thread_lastpost \n 5=search_results_posts_post \n 6=search_results_threads_thread_firstpost \n 7=search_results_threads_thread_lastpost \n 8=private_messagebit', 
+            'optionscode'=>'select \n 1=setting_lightavatars_forumbit_depth2_forum_lastpost \n 2=setting_lightavatars_forumbit_depth1_forum_lastpost \n 3=setting_lightavatars_forumdisplay_thread_firstpost \n 4=setting_lightavatars_forumdisplay_thread_lastpost \n 5=setting_lightavatars_search_results_posts_post \n 6=setting_lightavatars_search_results_threads_thread_firstpost \n 7=setting_lightavatars_search_results_threads_thread_lastpost \n 8=setting_lightavatars_private_messagebit \n 9=setting_lightavatars_forumdisplay_announcements_announcement \n', 
             'value'=>'1'
             ],
         [
@@ -102,74 +102,67 @@ function lightavatars_activate() {
             'value'=>'0'
             ],
         [
-            'name'=>'lightavatars_link', 
-            'title'=>$lang->lightavatars_link, 
-            'description'=>$lang->lightavatars_link_desc, 
-            'optionscode'=>'text', 
-            'value'=>''
-            ],
-        [
-            'name'=>'lightavatars_img', 
-            'title'=>$lang->lightavatars_img, 
-            'description'=>$lang->lightavatars_img_desc, 
-            'optionscode'=>'text', 
-            'value'=>'normal'
-            ],
-        [
             'name'=>'lightavatars_forumbit_depth2_forum_lastpost', 
             'title'=>$lang->lightavatars_forumbit_depth2_forum_lastpost, 
-            'description'=>$lang->lightavatars_forumbit_depth2_forum_lastpost_desc, 
+            'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'normal'
+            'value'=>'old'
             ],
         [
             'name'=>'lightavatars_forumbit_depth1_forum_lastpost', 
             'title'=>$lang->lightavatars_forumbit_depth1_forum_lastpost, 
-            'description'=>$lang->lightavatars_forumbit_depth1_forum_lastpost_desc, 
+            'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'normal'
+            'value'=>'old'
             ],
         [
             'name'=>'lightavatars_forumdisplay_thread_firstpost', 
             'title'=>$lang->lightavatars_forumdisplay_thread_firstpost, 
-            'description'=>$lang->lightavatars_forumdisplay_thread_firstpost_desc, 
+            'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'normal'
+            'value'=>'old'
             ],
         [
             'name'=>'lightavatars_forumdisplay_thread_lastpost', 
             'title'=>$lang->lightavatars_forumdisplay_thread_lastpost, 
-            'description'=>$lang->lightavatars_forumdisplay_thread_lastpost_desc, 
+            'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'normal'
+            'value'=>'old'
             ],
         [
             'name'=>'lightavatars_search_results_posts_post', 
             'title'=>$lang->lightavatars_search_results_posts_post, 
-            'description'=>$lang->lightavatars_search_results_posts_post_desc, 
+            'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'normal'
+            'value'=>'old'
             ],
         [
             'name'=>'lightavatars_search_results_threads_thread_firstpost', 
             'title'=>$lang->lightavatars_search_results_threads_thread_firstpost, 
-            'description'=>$lang->lightavatars_search_results_threads_thread_firstpost_desc, 
+            'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'normal'
+            'value'=>'old'
             ],
         [
             'name'=>'lightavatars_search_results_threads_thread_lastpost', 
             'title'=>$lang->lightavatars_search_results_threads_thread_lastpost, 
-            'description'=>$lang->lightavatars_search_results_threads_thread_lastpost_desc, 
+            'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'normal'
+            'value'=>'old'
             ],
         [
             'name'=>'lightavatars_private_messagebit', 
             'title'=>$lang->lightavatars_private_messagebit, 
-            'description'=>$lang->lightavatars_private_messagebit_desc, 
+            'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'small'
+            'value'=>'old'
+            ],
+        [
+            'name'=>'lightavatars_forumdisplay_announcements_announcement', 
+            'title'=>$lang->lightavatars_forumdisplay_announcements_announcement, 
+            'description'=>"", 
+            'optionscode'=>'text', 
+            'value'=>'old'
             ]
         ];
 
@@ -197,7 +190,7 @@ function lightavatars_activate() {
                 "name"=>"lightavatars.css",
                 "cachefile"=>"lightavatars.css",
                 "tid"=>"1",
-                "attachedto"=>"forumdisplay.php|index.php|search.php|private.php",
+                "attachedto"=>"",
                 "stylesheet"=>$db->escape_string($styles),
                 "lastmodified"=>TIME_NOW
             ]
@@ -211,48 +204,53 @@ function lightavatars_activate() {
     find_replace_templatesets(
             'forumdisplay_thread', 
             '#'.preg_quote('{$attachment_count}').'#', 
-            '{+LIGHTAVATARS+}forumdisplay_thread_firstpost|{$thread[\'uid\']}{+ENDofBLOCK+}{$attachment_count}'
+            '{+}forumdisplay_thread_firstpost|{$thread[\'uid\']}{-}{$attachment_count}'
             );
     
     find_replace_templatesets(
             'forumdisplay_thread', 
             '/<(.*?)(\s*?){\$lastpostdate}/', 
-            '{+LIGHTAVATARS+}forumdisplay_thread_lastpost|{$thread[\'lastposteruid\']}{+ENDofBLOCK+}<\\1\\2{$lastpostdate}'
+            '{+}forumdisplay_thread_lastpost|{$thread[\'lastposteruid\']}{-}<\\1\\2{$lastpostdate}'
             );
     
     find_replace_templatesets(
             'forumbit_depth1_forum_lastpost', 
             '#\A#', 
-            '{+LIGHTAVATARS+}forumbit_depth1_forum_lastpost|{$lastpost_data[\'lastposteruid\']}{+ENDofBLOCK+}'
+            '{+}forumbit_depth1_forum_lastpost|{$lastpost_data[\'lastposteruid\']}{-}'
             );
     
     find_replace_templatesets(
             'forumbit_depth2_forum_lastpost', 
             '#\A#', 
-            '{+LIGHTAVATARS+}forumbit_depth2_forum_lastpost|{$lastpost_data[\'lastposteruid\']}{+ENDofBLOCK+}'
+            '{+}forumbit_depth2_forum_lastpost|{$lastpost_data[\'lastposteruid\']}{-}'
             );
     
     find_replace_templatesets(
             'search_results_posts_post', 
             '#'.preg_quote('{$post[\'profilelink\']}').'#', 
-            '{+LIGHTAVATARS+}search_results_posts_post|{$post[\'uid\']}{+ENDofBLOCK+}{$post[\'profilelink\']}'
+            '{+}search_results_posts_post|{$post[\'uid\']}{-}{$post[\'profilelink\']}'
             );
     
     find_replace_templatesets(
             'search_results_threads_thread', 
             '#'.preg_quote('{$attachment_count}').'#', 
-            '{+LIGHTAVATARS+}search_results_threads_thread_firstpost|{$thread[\'uid\']}{+ENDofBLOCK+}{$attachment_count}'
+            '{+}search_results_threads_thread_firstpost|{$thread[\'uid\']}{-}{$attachment_count}'
             );
     
     find_replace_templatesets(
             'search_results_threads_thread', 
             '/<(.*?)(\s*?){\$lastpostdate}/', 
-            '{+LIGHTAVATARS+}forumdisplay_thread_lastpost|{$thread[\'lastposteruid\']}{+ENDofBLOCK+}<\\1\\2{$lastpostdate}'
+            '{+}forumdisplay_thread_lastpost|{$thread[\'lastposteruid\']}{-}<\\1\\2{$lastpostdate}'
             );
     find_replace_templatesets(
             'private_messagebit', 
             '#'.preg_quote('{$tofromusername}').'#',
-            '{+LIGHTAVATARS+}private_messagebit|{$tofromuid}{+ENDofBLOCK+}{$tofromusername}'
+            '{+}private_messagebit|{$tofromuid}{-}{$tofromusername}'
+            );
+    find_replace_templatesets(
+            'forumdisplay_announcements_announcement', 
+            '#<(.*?)'.preg_quote('{$announcement[\'subject\']}').'#',
+            '{+}forumdisplay_announcements_announcement|{$announcement[\'fid\']}{-}<\\1{$announcement[\'subject\']}'
             );
 }
 
@@ -273,7 +271,7 @@ function lightavatars_deactivate() {
     rebuild_settings();
     
     require_once MYBB_ROOT.'inc/adminfunctions_templates.php';
-    $deletepattern='#\{\+LIGHTAVATARS\+\}(.*?)\{\+ENDofBLOCK\+\}#';
+    $deletepattern='#\{\+\}(.*?)\{-\}#';
     find_replace_templatesets(
             'forumdisplay_thread', 
             $deletepattern, 
@@ -304,6 +302,11 @@ function lightavatars_deactivate() {
             $deletepattern, 
             ''
             );
+    find_replace_templatesets(
+            'forumdisplay_announcements_announcement', 
+            $deletepattern, 
+            ''
+            );
 }
 
 class LightAvatars
@@ -312,14 +315,18 @@ class LightAvatars
     public function getAvatars(&$content)
     {
         global $db, $mybb;
-        $matches=[];
-        preg_match_all('/\{\+LIGHTAVATARS\+\}(.*?)\|(.*?)\{\+ENDofBLOCK\+\}/', $content, $matches);
+        
+        //input
+        preg_match_all('/\{\+\}(.*?)\|(.*?)\{\-\}/', $content, $matches);
         if(!$matches[0]) {
             return $content;
         }
+        
+        //getvariables
         $matchescount=count($matches[0]);
         
         while($matchescount--) {
+            
             $info[$matches[2][$matchescount]]['position'][$matches[1][$matchescount]]=1;
             if($matches[2][$matchescount]!=0) {
                 $select[$matches[2][$matchescount]]=$matches[2][$matchescount];
@@ -328,6 +335,7 @@ class LightAvatars
                 $info[0]['name']='unregistered';
             }
         }
+            
         if(isset($select)) {
             $selected='uid='.implode(' OR uid=',$select);
             $avatardata=$db->simple_select(
@@ -336,47 +344,33 @@ class LightAvatars
                 $selected, 
                 NULL
                 );
-        }
-        while($base=$db->fetch_array($avatardata)) {
-            $info[$base['uid']]['avatar']=$base['avatar'];
-            $info[$base['uid']]['name']=$base['username'];
+            while($base=$db->fetch_array($avatardata)) {
+                $info[$base['uid']]['avatar']=$base['avatar'];
+                $info[$base['uid']]['name']=$base['username'];
+            }
         }
         
-        foreach($info as $key => $avatar){
-            if($mybb->settings['lightavatars_custom']) {
-+                $style['avatar']=' lavatar--'.$avatar['name'];
-+                $style['link']=' lavatar__link--'.$avatar['name'];
-+                $style['img']=' lavatar__img--'.$avatar['name'];
-            }
+        foreach($info as $key => $avatar) {
             
-            $masterstyle['link']=explode(' ',$mybb->settings['lightavatars_link']);
-            $masterstyle['link']=" lavatar__link--".implode(" lavatar__link--",$masterstyle['link']);
-            $masterstyle['img']=explode(' ',$mybb->settings['lightavatars_img']);
-            $masterstyle['img']=" lavatar__img--".implode(" lavatar__img--",$masterstyle['img']);
-            
-            $avatargen='';
             if(empty($avatar['avatar'])) {
                 $avatar['avatar']='./'.$mybb->settings['useravatar'];
             }
-            $avatargen='<img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].' user avatar image" class="lavatar__img'.$masterstyle['img'].$style['img'].'" onError="this.src=\''.$mybb->settings['bburl'].'/'.$mybb->settings['useravatar'].'\';">'; 
+            
             if($key!==0) {
-                $avatargen='<a href="'.$mybb->settings['bburl'].'/'.get_profile_link($key).'" title="'.$avatar['name'].'" rel="nofollow" class="lavatar__link'.$masterstyle['link'].$style['link'].'">'.$avatargen.'</a>';
+                $avatargen='<a href="'.$mybb->settings['bburl'].'/'.get_profile_link($key).'" title="'.$avatar['name'].'" rel="nofollow"><img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].'" onError="this.src=\''.$mybb->settings['bburl'].'/'.$mybb->settings['useravatar'].'\';"></a>';
             } else {
-                $avatargen='<div class="lavatar__link'.$masterstyle['link'].$style['link'].'">'.$avatargen.'</div>';
+                $avatargen='<a><img src="'.$avatar['avatar'].'" alt="'.$mybb->settings['bbname'].'" onError="this.src=\''.$mybb->settings['bburl'].'/'.$mybb->settings['useravatar'].'\';"></a>';
             }
             
             foreach($avatar['position'] as $position => $truevalue) {
-                switch($position) {
-                    case 'private_messagebit':
-                        $mybb->settings['lightavatars_'.$position].=' pmfix';
-                        break;
-                    case 'search_results_posts_post':
-                        $mybb->settings['lightavatars_'.$position].=' searchpostfix';
-                        break;
+                if(!$masterstyle[$position]) {
+                    $masterstyle[$position]=explode(' ',$mybb->settings['lightavatars_'.$position]);
+                    $masterstyle[$position]="lavatar-".implode(" lavatar-",$masterstyle[$position]);
                 }
-                $masterstyle['avatar']=explode(' ',$mybb->settings['lightavatars_'.$position]);
-                $masterstyle['avatar']=" lavatar--".implode(" lavatar--",$masterstyle['avatar']);
-                $content=str_replace('{+LIGHTAVATARS+}'.$position.'|'.$key.'{+ENDofBLOCK+}', '<div class="lavatar'.$masterstyle['avatar'].$style['avatar'].'">'.$avatargen.'</div>', $content);
+                if($mybb->settings['lightavatars_custom']) {
+                    $style['avatar']=' lavatar-'.$avatar['name'].'-'.$position;
+                }
+                $content=str_replace('{+}'.$position.'|'.$key.'{-}', '<div class="'.$masterstyle[$position].$style['avatar'].'">'.$avatargen.'</div>', $content);
             }
         }
         return $content;
