@@ -106,63 +106,63 @@ function lightavatars_activate() {
             'title'=>$lang->lightavatars_forumbit_depth2_forum_lastpost, 
             'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'old'
+            'value'=>'old old-n'
             ],
         [
             'name'=>'lightavatars_forumbit_depth1_forum_lastpost', 
             'title'=>$lang->lightavatars_forumbit_depth1_forum_lastpost, 
             'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'old'
+            'value'=>'old old-n'
             ],
         [
             'name'=>'lightavatars_forumdisplay_thread_firstpost', 
             'title'=>$lang->lightavatars_forumdisplay_thread_firstpost, 
             'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'old'
+            'value'=>'old old-f'
             ],
         [
             'name'=>'lightavatars_forumdisplay_thread_lastpost', 
             'title'=>$lang->lightavatars_forumdisplay_thread_lastpost, 
             'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'old'
+            'value'=>'old old-f'
             ],
         [
             'name'=>'lightavatars_search_results_posts_post', 
             'title'=>$lang->lightavatars_search_results_posts_post, 
             'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'old'
+            'value'=>'old old-m'
             ],
         [
             'name'=>'lightavatars_search_results_threads_thread_firstpost', 
             'title'=>$lang->lightavatars_search_results_threads_thread_firstpost, 
             'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'old'
+            'value'=>'old old-n'
             ],
         [
             'name'=>'lightavatars_search_results_threads_thread_lastpost', 
             'title'=>$lang->lightavatars_search_results_threads_thread_lastpost, 
             'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'old'
+            'value'=>'old old-n'
             ],
         [
             'name'=>'lightavatars_private_messagebit', 
             'title'=>$lang->lightavatars_private_messagebit, 
             'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'old'
+            'value'=>'old old-m'
             ],
         [
             'name'=>'lightavatars_forumdisplay_announcements_announcement', 
             'title'=>$lang->lightavatars_forumdisplay_announcements_announcement, 
             'description'=>"", 
             'optionscode'=>'text', 
-            'value'=>'old'
+            'value'=>'old old-f'
             ]
         ];
 
@@ -322,7 +322,7 @@ class LightAvatars
             return $content;
         }
         
-        //getvariables
+        //getinfo
         $matchescount=count($matches[0]);
         
         while($matchescount--) {
@@ -335,7 +335,8 @@ class LightAvatars
                 $info[0]['name']='unregistered';
             }
         }
-            
+        
+        //getdatafromdb
         if(isset($select)) {
             $selected='uid='.implode(' OR uid=',$select);
             $avatardata=$db->simple_select(
@@ -350,6 +351,7 @@ class LightAvatars
             }
         }
         
+        //setavatars
         foreach($info as $key => $avatar) {
             
             if(empty($avatar['avatar'])) {
