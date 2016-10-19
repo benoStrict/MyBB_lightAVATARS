@@ -1,0 +1,5 @@
+<div class="{$la_class[$position]}{$la_class_s['avatar']}{$la_class_s['group']}">
+    <a href="{$la_link}" tltle="{$la_avatar['name']}" rel="nofollow">
+        <img src="{$la_avatar['avatar']}" alt="{$la_avatar['name']} avatar" onError="this.src='{$mybb->settings['bburl']}/{$mybb->settings['useravatar']};'">
+    </a>
+</div>

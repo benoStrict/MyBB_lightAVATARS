@@ -26,7 +26,8 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 
 var link = document.createElement("link");
 link.setAttribute("rel", "stylesheet");
-link.setAttribute("href", "../resources/lightavatars.css");
+linktostyles="../resources/"+linktostyles;
+link.setAttribute("href", linktostyles);
 var head = document.getElementsByTagName("head")[0];
 head.appendChild(link);
 var licznik=1;

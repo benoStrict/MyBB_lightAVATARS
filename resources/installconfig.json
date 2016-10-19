@@ -1,0 +1,39 @@
+{
+    "insert" : {
+        "1" : "forumdisplay_thread_firstpost", 
+        "2" : "forumdisplay_thread_lastpost", 
+        "3" : "forumbit_depth1_forum_lastpost", 
+        "4" : "forumbit_depth2_forum_lastpost", 
+        "5" : "search_results_posts_post", 
+        "6" : "search_results_threads_thread_firstpost", 
+        "7" : "search_results_threads_thread_lastpost", 
+        "8" : "private_messagebit", 
+        "9" : "forumdisplay_announcements_announcement"
+    },
+    "default" : {
+        "styles" : {
+            "forumdisplay_thread_firstpost" : "old old-f", 
+            "forumdisplay_thread_lastpost" : "old old-f", 
+            "forumbit_depth1_forum_lastpost" : "old old-n", 
+            "forumbit_depth2_forum_lastpost" : "old old-n", 
+            "search_results_posts_post" : "old old-m", 
+            "search_results_threads_thread_firstpost" : "old old-n", 
+            "search_results_threads_thread_lastpost" : "old old-n", 
+            "private_messagebit" : "old old-m", 
+            "forumdisplay_announcements_announcement" : "old old-f"
+        },
+        "settings" : {
+            "1" : "forumdisplay_thread_firstpost", 
+            "2" : "forumdisplay_thread_lastpost", 
+            "3" : "forumbit_depth1_forum_lastpost", 
+            "4" : "forumbit_depth2_forum_lastpost", 
+            "5" : "search_results_posts_post", 
+            "6" : "search_results_threads_thread_firstpost", 
+            "7" : "search_results_threads_thread_lastpost", 
+            "8" : "private_messagebit", 
+            "9" : "forumdisplay_announcements_announcement"
+        }
+    },
+    "styles" : "lightavatars",
+    "template" : "lightavatars"
+}

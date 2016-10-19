@@ -32,7 +32,7 @@
 }
 
 .lavatar-alaipb img {
-	width:30px
+	width:30px;
 	border: 1px solid #000;
 }
 
@@ -60,3 +60,11 @@
 	height: 31px;
 	border: 1px solid #ccc;
 }
+
+/*there is example class*/
+.lavatar-example img {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+/*now open plugin settings and add "example" after last style in  forumbit_depth2_forum_lastpost input.*/
+/*Try it Yourself*/

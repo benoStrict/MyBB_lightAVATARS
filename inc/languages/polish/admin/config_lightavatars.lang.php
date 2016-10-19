@@ -31,14 +31,8 @@ THE SOFTWARE.
 $l['lightavatars_view'] = "Podgląd";
 $l['lightavatars_custom'] = "Style indywidualne";
 $l['lightavatars_custom_desc'] = "Dodaję klasę css z nazwą użytkownika, obsługuje też różne pozycje";
-$l['lightavatars_forumbit_depth2_forum_lastpost'] = "Style dla szablonu forumbit_depth2_forum_lastpost";
-$l['lightavatars_forumbit_depth1_forum_lastpost'] = "Style dla szablonu forumbit_depth1_forum_lastpost";
-$l['lightavatars_forumdisplay_thread_firstpost'] = "Style autora dla szablonu forumdisplay_thread";
-$l['lightavatars_forumdisplay_thread_lastpost'] = "Style ostatnio pisącego dla szablonu forumdisplay_thread";
-$l['lightavatars_search_results_posts_post'] = "Style dla szablonu search_results_posts_post";
-$l['lightavatars_search_results_threads_thread_firstpost'] = "Style autora dla szablonu search_results_threads_thread";
-$l['lightavatars_search_results_threads_thread_lastpost'] = "Style ostatnio piszącego dla search_results_threads_thread";
-$l['lightavatars_private_messagebit'] = "Style dla szablonu private_messagebit";
-$l['lightavatars_forumdisplay_announcements_announcement'] = "Style dla szablonu forumdisplay_announcements_announcement";
+$l['lightavatars_groupclass'] = "Style dla grup";
+$l['lightavatars_groupclass_desc'] = "Dodaję klasę css z z nazwa grupy i pozycją";
+$l['lightavatars_title'] = "Style dla szablonu ";
 $l['lightavatars_desc'] = 'Dodaje awatary na forum';
 $l['lightavatars_shortcut'] = 'Ustawienia';
