@@ -207,7 +207,7 @@ function lightavatars_activate() {
         "forumdisplay_announcements_announcement" => [
             'forumdisplay_announcements_announcement', 
             '#<(.*?)'.preg_quote('{$announcement[\'subject\']}').'#',
-            '<!--{+}forumdisplay_announcements_announcement|{$announcement[\'fid\']}{-}--><\\1{$announcement[\'subject\']}'
+            '<!--{+}forumdisplay_announcements_announcement|{$announcement[\'uid\']}{-}--><\\1{$announcement[\'subject\']}'
         ]
     ];
     
